@@ -137,6 +137,13 @@ model.save_pretrained("./mymodel")
 pipe = pipeline("text-generation", model="heisrayco/fine_gpt2",tokenizer=tokenizer,device="cuda",max_new_tokens=100,temperature=0.7,top_k=4,no_repeat_ngram_size=3,num_return_sequences=1)
 llm = HuggingFacePipeline(pipeline=pipe)
 
+query = "generate a story about a boy named ray" # the generated output isnt perfect due to the fact that it was fine tuned with limited data
+
+result = pipe(query)[0]["generated_text"]
+result = result.replace(query,"")
+result
+
+
 from langchain.chains import create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.prompts import ChatPromptTemplate
