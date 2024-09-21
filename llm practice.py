@@ -53,7 +53,6 @@ dataseter = dataset_1.map(cleaning_2)
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 
-access_token = "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"
 os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
 
 tokenizer = AutoTokenizer.from_pretrained("openai-community/gpt2",)
