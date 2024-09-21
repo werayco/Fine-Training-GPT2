@@ -129,16 +129,12 @@ answer = ",".join([d.page_content for d in needed])
 print(answer)
 
 """### Saving my fine_tuned gpt2 model to my local directory"""
-
 model.save_pretrained("./mymodel")
 
 # now loading the fine tuned model from huggingface hub
-
 pipe = pipeline("text-generation", model="heisrayco/fine_gpt2",tokenizer=tokenizer,device="cuda",max_new_tokens=100,temperature=0.7,top_k=4,no_repeat_ngram_size=3,num_return_sequences=1)
 llm = HuggingFacePipeline(pipeline=pipe)
-
 query = "generate a story about a boy named ray" # the generated output isnt perfect due to the fact that it was fine tuned with limited data
-
 result = pipe(query)[0]["generated_text"]
 result = result.replace(query,"")
 result
@@ -156,7 +152,7 @@ doc_chain = create_stuff_documents_chain(llm,prompt)
 qa = create_retrieval_chain(retriever,doc_chain)
 
 query_rag = qa.invoke({"input": "What is an agent?","context": retriever})
-ans = query_rag["answer"].replace("\n","").replace("\n","") # this returns the respective answer for your input
+ans = query_rag["answer"].replace("\n","").replace("\n\n","") # this returns the respective answer for your input
 print(ans)
 
 # Use a pipeline as a high-level helper
@@ -165,12 +161,6 @@ from langchain_huggingface import HuggingFacePipeline
 
 if tokenizer.pad_token_id is None:
   tokenizer.pad_token_id = tokenizer.eos_token_id
-
-
-
-import re
-result = llm("what is ")[0]["generated_text"].replace("\n","")
-result
 
 # prompt templating
 from langchain.prompts import PromptTemplate
