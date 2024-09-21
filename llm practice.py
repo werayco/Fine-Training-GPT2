@@ -96,8 +96,6 @@ trainer.push_to_hub("heisrayco-finetuned_gpt2") # commiting our model to hugging
 tokenizer.push_to_hub("tokenizer_gpt2",)
 
 """### **RAG Section: Using a Custom document created by ME**"""
-
-# 4003ff4a11bfc183797d332f5cb9dc5be7743a40
 !pip install pyPDF
 !pip install langchain
 !pip install -U langchain-community langchain_huggingface
